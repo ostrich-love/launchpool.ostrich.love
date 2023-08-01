@@ -9,6 +9,7 @@ import { useSubmitTransiction } from '../../../methods/submit';
 import { useTranslation } from 'react-i18next';
 import { getBalance } from '../../../contracts/methods'; 
 import { allowance, approve, deposit_flexible } from '../../../contracts/methods/farm';
+import { deposit } from '../../../contracts/methods/prefarm';
 const decimal = 6
 
 const Stake = ({info, account, onSuccess}) => {
@@ -44,7 +45,7 @@ const Stake = ({info, account, onSuccess}) => {
   }, [info]) 
   const toDeposit = useCallback(async() => {
     setLoading(true)
-      deposit_flexible(toWei(toFixed(inputValue*1, UNIT_DECIMAL)), info.name).then(res => {
+      deposit(toWei(toFixed(inputValue*1, UNIT_DECIMAL)), info.depositToken).then(res => {
         setLoading(false)
         setInputValue('')
         setBalanceRefresh(balanceRefresh+1)

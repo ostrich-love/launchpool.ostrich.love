@@ -19,52 +19,18 @@ import AddNetwrok from './AddNetwrok';
 const nav = [
   {
     name: 'Home',
-    link: '/',
+    isoutlink: true,
+    link: 'https://ostrich.love',
     icon: require('../../assets/image/nav/Home.svg').default
   },
-  // {
-  //   name: 'Marketplace',
-  //   link: '/marketplace',
-  //   icon: require('../../assets/image/nav/Marketplace.svg').default
-  // },
   {
-    name: 'Swap',
-    link: '/swap',
-    icon: require('../../assets/image/nav/Swap.svg').default
-  },
-  {
-    name: 'Farm',
-    link: '/farm',
+    name: 'LaunchPool',
+    link: '/',
     icon: require('../../assets/image/nav/Farm.svg').default
   },
-  // {
-  //   name: 'Get Quota',
-  //   link: '/getquota',
-  //   icon: require('../../assets/image/nav/Staking.svg').default
-  // },
-  {
-    name: 'Launch',
-    link: 'https://ido.ostrich.love',
-    isoutlink: true,
-    ishot: true,
-    icon: require('../../assets/image/nav/Launch.svg').default
-  },
-  {
-    name: 'Bridge',
-    link: '/bridge',
-    icon: require('../../assets/image/nav/Bridge.svg').default
-  },
-  {
-    name: 'Airdrop',
-    link: 'https://airdrop.ostrich.love',
-    // disabled: true,
-    isoutlink: true,
-    // iscoming: true,
-    icon: require('../../assets/image/nav/Airdrop.svg').default
-  }
 ]
 //显示透明的菜单栏
-const pathnameList = ['/airdrop', '/', '/invite', '/quest']
+const pathnameList = ['/airdrop', '/invite', '/quest']
 export default () => {
   let [show, setShow] = useState(false)
   let { t, i18n } = useTranslation()
