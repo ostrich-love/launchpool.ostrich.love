@@ -1,0 +1,16 @@
+{
+    "Orich": "0x0ed51f89b4ffc01c066e08fb21a284e3a6fa97c4",
+    "USDT": "0xbc0fd70a5bbf4f9ca9343ec2f24d6e05cf219fbe",
+    "BUSD": "0x7aaea8569cb31014c22d835a05e73dc588de78f6",
+    "USDC": "0xefdafe955afae7d3bc80cc909889d2e6a4f63dd9",
+    "BNB": "0x6a10fe96a35d9b67ba4c45740fd4b4a707354f9f",
+    "AVAX": "0xb314718402eb3bcc3f9a25dbf99c66e0359d9c16",
+    "MATIC": "0xec7116cd737b5b89b6688b34e20a55105e64264f",
+    "ARB": "0x12a4738a91e07516c2f9e577338b0fe79ae0eef5",
+    "WETH": "0x25f8dc2740b3c4627a662942f41d4ac61e27c815",
+    "SwapFactory": "0x0e1077badb053d1c25839b2a5cbb2bbdab1e98c8",
+    "SwapRouter": "0x0c1ada0b0ab75210c66c6a99d504a6cd922152d3",
+    "Orich-USDT": "0x89b170f4f2465aa5ccc49e07bbb034c9e86f9813",
+    "SwapOracle": "0x3cc9d9de4808b5032a31f5b79d0c68e12b58c063",
+    "SwapAggregator": "0xb31e746a25dbd1a196b959cb103a47fbc1c0ce3f"
+}
