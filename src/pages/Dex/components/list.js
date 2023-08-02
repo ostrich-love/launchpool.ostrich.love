@@ -80,6 +80,11 @@ import { findAddressByName } from '../../../lib/util'
       title: 'TEST',
       desc: 'TEST token',
       icon: require('../../../assets/image/token/TEST.png')
+    },
+    {
+      title: 'BALD',
+      desc: 'BALD token',
+      icon: require('../../../assets/image/token/bald.jpg')
     }
   ]
 

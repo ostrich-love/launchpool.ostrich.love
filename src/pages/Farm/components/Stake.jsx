@@ -34,7 +34,7 @@ const Stake = ({info, account, onSuccess}) => {
     try {
       setLoading(true)
       approve(info.depositToken, 
-      findAddressByName(info.name)).then(res => {
+      findAddressByName('BOrichPool')).then(res => {
         setBalanceRefresh(balanceRefresh+1)
       }).finally(err => {
         setLoading(false)
@@ -60,7 +60,8 @@ const Stake = ({info, account, onSuccess}) => {
         let bal = await getBalance(account, info.depositToken)
         setBal(toFixed(fromUnit(bal), 4))
         setBalanceLoading(false)
-        let allowance_amount = await allowance(info.depositToken, findAddressByName(info.name))
+        console.log(info)
+        let allowance_amount = await allowance(info.depositToken, findAddressByName('BOrichPool'))
         console.log(fromUnit(allowance_amount))
         setAllow(fromUnit(allowance_amount))
       }
@@ -123,7 +124,7 @@ const Stake = ({info, account, onSuccess}) => {
         }
       
       <div className="flex flex-middle">
-      <a className="get-text ta m-t-16 pointer" href={findNameByAddress(info.depositToken).includes('-') ?`/liquidity`:'/swap'}>
+      <a className="get-text ta m-t-16 pointer" target="_blank" href={findNameByAddress(info.depositToken).includes('-') ?`https://swap.ostrich.love/liquidity`:'https://swap.ostrich.love/swap'}>
         {t('Get')} {
          findNameByAddress(info.depositToken)}
       </a>

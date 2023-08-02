@@ -81,7 +81,8 @@ const FarmListItem = (props) => {
           <div className='center-info-data-list-item'>
             <div className='label fz-14 lh-18 m-b-8'>{t('My proportion')} </div>
             <div className='value fw-500 c2b lh-20'>
-              {typeof(props.info.depositions?.depositAmount) == 'undefined' ?<Skeleton.Button active size={'small'} />:toFixed(fromUnit(props.info.depositions?.depositAmount)*100/fromUnit(props.info.depositAmount), 2)+ '%'}
+              
+              {typeof(props.info.depositions?.depositAmount) == 'undefined' ?<Skeleton.Button active size={'small'} />:(props.info.depositions?.depositAmount == 0 ?0:toFixed(fromUnit(props.info.depositions?.depositAmount)*100/fromUnit(props.info.depositAmount), 2))+ '%'}
               
             </div>
           </div>

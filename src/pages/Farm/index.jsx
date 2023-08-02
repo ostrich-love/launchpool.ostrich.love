@@ -283,7 +283,7 @@ function Farm(props) {
         type: 'flexible',
         depositions: my_deposit[index],
         apr: 0,
-        name: findAddressByName(item.depositToken),
+        name: findNameByAddress(item.depositToken),
         reward: new BigNumber(my_deposit[index].depositAmount).multipliedBy(new BigNumber(item.config.totalReward)).dividedBy(new BigNumber(item.depositAmount)).toString(), 
         index,
         deposit_list: [],
