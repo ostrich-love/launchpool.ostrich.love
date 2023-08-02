@@ -20,10 +20,17 @@ let chainIcon = {
   Base
 }
 let chainList = [
+
+  {
+    name: 'Base',
+    chain: 'Base',
+    icon: chainIcon['Base']
+  },
   {
     name: 'zkSync',
     chain: 'zkSync',
-    icon: chainIcon['zkSync']
+    icon: chainIcon['zkSync'],
+    disabled: true
   },
   {
     name: 'Arbitrum',
@@ -36,17 +43,11 @@ let chainList = [
     chain: 'Linea',
     icon: chainIcon['Linea'],
     disabled: true
-  },
-  {
-    name: 'Base',
-    chain: 'Base',
-    icon: chainIcon['Base'],
-    disabled: true
   }
 ]
 const Chain = ({ isShow,pathname }) => {
 
-  let [chain, setChains] = useState('zkSync')
+  let [chain, setChains] = useState('Base')
   return (
 
     <div className={`chain-list p-l-8 flex flex-center c2e ${(isShow && pathname!=='/launch') && 'TransparentStyle'}`}>

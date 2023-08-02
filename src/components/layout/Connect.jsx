@@ -27,7 +27,7 @@ import btc from '../../assets/image/token/BTC.svg'
 import { useTranslation } from 'react-i18next';
 import {MetaMaskSDK} from '@metamask/sdk'
 
-const coinList = ['Orich', 'ETH','USDC','USDT']
+const coinList = ['Orich', 'ETH', 'BALD']
 
 function Connect (props) {
     let [show, setShow] = useState(false)

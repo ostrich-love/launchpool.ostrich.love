@@ -4,9 +4,9 @@ import { queryModuleResource, queryResource , queryTableItem, queryLatestNodeInf
 import BN, { BigNumber } from "bignumber.js"
 import { queryTokenPairReserve, sortCoin } from "./swap";
 let INDEX_PRECISION = new BN(1e12);
-const deployer = getAddress().farm.unlocker.address.split('::')[0] // 合约地址
+const deployer = '' // 合约地址
 
-const moduleType = getAddress().farm.unlocker.address
+const moduleType = ''
 const queryResourceCap = async () => {
     console.log(deployer)
     return await queryModuleResource(deployer,  `ResourceCap`,moduleType);
