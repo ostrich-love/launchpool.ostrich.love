@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { getTokenByName } from '../../Dex/components/list';
 import { findNameByAddress, fromUnit, toFixed, toWei, UNIT_DECIMAL } from '../../../lib/util';
 import { useTranslation } from 'react-i18next';
-import { withdraw_flexible } from '../../../contracts/methods/farm';
+import { withdraw } from '../../../contracts/methods/prefarm';
 
 const decimal = 6
 
@@ -25,7 +25,7 @@ const UnStake = ({info, account, stakeNum, onSuccess}) => {
 
   const toUnstake = useCallback(async() => {
     setLoading(true)
-    withdraw_flexible(toWei(toFixed(inputValue*1, UNIT_DECIMAL)), info.name).then(res => {
+    withdraw(toWei(toFixed(inputValue*1, UNIT_DECIMAL)), info.depositToken).then(res => {
       setInputValue('')
         setActivePercent(0)
         onSuccess()
@@ -72,7 +72,9 @@ const UnStake = ({info, account, stakeNum, onSuccess}) => {
         </div>
       </div>
       <Button onClick={toUnstake} loading={loading} disabled={inputValue <=0} className="color w100 bdr-24 confirm-btn m-t-15 fz-16 fwb">
+        <span className="cf">
         {t('Confirm')}
+        </span>
       </Button>
 
     </div>

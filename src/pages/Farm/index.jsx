@@ -277,14 +277,15 @@ function Farm(props) {
       my_deposit.push({
         claimTime: 0,
         depositAmount: 0,
-        depositToken: ZERO_ADDRESS
+        depositToken: ZERO_ADDRESS,
+        reward: 0
       })
     })
     if(props.account) {
       let my_pools = await queryAllUserPoolInfos(props.account)
       console.log('===============')
       console.log(my_pools)
-      my_deposit = my_pools
+      my_deposit = [...my_pools]
     }
     let farm_list_will = []
     allpools.map((item, index) => {
@@ -295,6 +296,7 @@ function Farm(props) {
         depositions: my_deposit[index],
         apr: 0,
         name: findAddressByName(item.depositToken),
+        reward: new BigNumber(my_deposit[index].depositAmount).multipliedBy(new BigNumber(item.config.totalReward)).dividedBy(new BigNumber(item.depositAmount)).toString(), 
         index,
         deposit_list: [],
         lptype: findAddressByName(item.depositToken).includes('-') ?' LPToken': 'single'
@@ -303,7 +305,7 @@ function Farm(props) {
 
     setFarmlist(farm_list_will)
     console.log('////////////////////////////')
-    console.log(allpools)
+    console.log(farm_list_will)
   }, [props.account, refreshTrigger])
   useInterval(() => {
       setRefreshTrigger(refreshTrigger + 1);

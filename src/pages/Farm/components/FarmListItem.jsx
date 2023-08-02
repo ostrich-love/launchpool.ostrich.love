@@ -60,7 +60,7 @@ const FarmListItem = (props) => {
           <div className='center-info-data-list-item'>
             <div className='label fz-14 lh-18 m-b-8'>{t('My position')} <Tooltip title=''><QuestionCircleOutlined /></Tooltip></div>
             <div className='value fw-500 c2b lh-20'>
-            {typeof(props.info.depositions?.depositAmount) == 'undefined' ?<Skeleton.Button active size={'small'} />:(<><Activenumber value={fromUnit(props.info.depositions?.depositAmount)} decimals={4}/></>)}
+            {typeof(props.info.depositions?.depositAmount) == 'undefined' ?<Skeleton.Button active size={'small'} />:(<><Activenumber value={fromUnit(props.info.depositions?.depositAmount)} decimals={6}/></>)}
               &nbsp;
               {
                 findNameByAddress(props.info.depositToken)
@@ -116,10 +116,10 @@ const FarmListItem = (props) => {
           <div className='m-t-16 flex open-box'>
             <div className='flex-1 flex c2b lh-30 border-r p-t-30 p-b-30 p-l-40 p-r-40 open-box-left'>
               <div className='flex-1'>
-                <div className=''>{t('Earned')}</div>
+                <div className=''>{t('Expected Earned')}</div>
                 <div className='fwb fz-18'>
                 {
-                  typeof(props.info.depositions?.reward) == 'undefined' ?<Skeleton.Button active size={'small'} />:<Activenumber value={fromUnit(props.info.depositions?.reward)} decimals={6} /> 
+                  typeof(props.info?.reward) == 'undefined' ?<Skeleton.Button active size={'small'} />:<Activenumber value={fromUnit(props.info?.reward)} decimals={6} /> 
                 }
                   &nbsp;{findNameByAddress(props.info.rewardToken)}
                   
@@ -127,15 +127,19 @@ const FarmListItem = (props) => {
                 {/* <div className='fz-14 fw-500'>≈ $1,000.00</div> */}
               </div>
               {
-                props.account && ( props.flexibleType == 'flexible' && !props.info.name.split('->')[0].includes('-') ?
-                  <Button className='color supply-btn fwb c231 fz-14 fwb m-t-30 ta hover disabled' disabled loading={props.claimLoading} onClick={props.showReward}>{t('Unstake')}</Button> :
-                   <span className="flex flex-column">
-                    {
-                      props.flexibleType == 'fixed'?<Button className='color supply-btn fwb c231 fz-14 fwb m-t-30 ta hover' disabled={props.info.depositions?.amount <=0} loading={props.claimLoading} onClick={props.showDetail}>{t('Stake Detail')}</Button>:
-                      <Button className='color supply-btn fwb c231 fz-14 fwb m-t-30 ta hover' disabled={lastTime || props.info.depositions?.reward <=0} loading={props.claimLoading} onClick={props.toClaim}>{t('Claim')}</Button>
-                    }
-                   </span>
-                  )
+                props.account?(
+                  <>
+                  {
+                    Date.now()/1000 > props.info?.depositStartTime && Date.now()/1000 < props.info?.claimStartTime && 
+                    <Button className='color supply-btn fwb c231 fz-14 fwb m-t-30 ta hover' loading={props.claimLoading} onClick={props.showUnStake}>{t('Unstake')}</Button>
+                  }
+                  {
+                    Date.now()/1000 > props.info?.claimStartTime && 
+                    <Button className='color supply-btn fwb c231 fz-14 fwb m-t-30 ta hover' disabled={props.info.depositions?.reward <=0} loading={props.claimLoading} onClick={props.toClaim}>{t('Claim')}</Button>
+                  }
+                    
+                  </>
+                ):''
               }
             </div>
             <div className='flex-1 c2b lh-30 p-t-20 p-l-40 p-r-40 p-b-30 open-box-right'>

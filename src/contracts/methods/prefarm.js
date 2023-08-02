@@ -161,3 +161,40 @@ export function claim (token) {
    }
   })
 }
+
+
+export function withdraw (amount, token) {
+  return new Promise(async (res, rej) => {
+    try{
+      const provider = await createProviderController().connect()
+      const web3 = new Web3(provider)
+      const accounts = await web3.eth.getAccounts();
+      const address = accounts[0];
+      let hanlder = new web3.eth.Contract(BOrichPool, findAddressByName('BOrichPool')).methods.withdraw(token, amount)
+      let msg = {from: address}
+      hanlder.estimateGas(msg).then(async(resp)=>{
+        console.log(resp)
+        let gas_price = await web3.eth.getGasPrice()*1.2/1000000000
+        hanlder.send({...msg, gas: resp, gasPrice: Math.ceil(gas_price*1000000000)})
+     .on('transactionHash', function(hash) {
+      // res({transactionHash:hash})
+     })
+     .on('receipt', function(result){
+      res({transactionHash:result.transactionHash})
+      OpenNotification('success', 'Successful', 'success')
+      
+     }).on('error', function (error) {
+       rej(error);
+     })
+     .catch((error) => {
+       rej(error);
+     });
+    })
+    .catch((error) => {
+      rej(error);
+    });
+   } catch (err) {
+     rej(err);
+   }
+  })
+}

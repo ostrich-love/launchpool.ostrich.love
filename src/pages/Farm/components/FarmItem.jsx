@@ -20,6 +20,7 @@ import { queryResource} from '../../../methods/client.ts';
 import { useTranslation } from 'react-i18next';
 import { refresh_interval } from '../../../global';
 import { harvest_flexible } from '../../../contracts/methods/farm';
+import { claim } from '../../../contracts/methods/prefarm';
 
 const FarmItem = (props) => {
   const navigate  = useNavigate()
@@ -33,7 +34,7 @@ const FarmItem = (props) => {
 
      const toClaim = useCallback(async() => {
       setClaimLoading(true)
-      harvest_flexible(props.info.name).then(res => {
+      claim(props.info.depositToken).then(res => {
         setClaimLoading(false)
       }).catch(err => {
         setClaimLoading(false)
@@ -63,7 +64,7 @@ const FarmItem = (props) => {
       </Modal>
 
       <Modal isVisible={showUnStake} title={t("UnStake")} onClose={() => setShowUnStake(false)}>
-        <UnStake info={props.info} account={props.account} stakeNum={props.info.depositions?.amount||0} onSuccess={() => {setRefreshTrigger(refreshTrigger+1);setShowUnStake(false)}}/>
+        <UnStake info={props.info} account={props.account} stakeNum={props.info.depositions?.depositAmount||0} onSuccess={() => {setRefreshTrigger(refreshTrigger+1);setShowUnStake(false)}}/>
       </Modal>
 
 

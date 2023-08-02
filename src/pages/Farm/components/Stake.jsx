@@ -53,7 +53,7 @@ const Stake = ({info, account, onSuccess}) => {
       }).finally(res => {
         setLoading(false)
       })
-  }, [info])
+  }, [info, inputValue])
   useEffect(async() => {
      if(account) {
         setBalanceLoading(true)
