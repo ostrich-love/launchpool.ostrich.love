@@ -7,7 +7,7 @@ import { ReactComponent as UpCircleOutlined } from '../../../assets/image/common
 import classNames from 'classnames';
 import { ReactComponent as ArrowOpen } from '../../../assets/image/common/down.svg'
 import { getTokenByName } from '../../Dex/components/list';
-import { calcDays, calcHours, findAddressByName, findNameByAddress, formatTime, fromUnit, hexToString, numFormat, showLogin } from '../../../lib/util';
+import { calcDays, calcHours, findAddressByName, findNameByAddress, formatTime, fromUnit, hexToString, numFormat, showLogin, toFixed } from '../../../lib/util';
 import Activenumber from '../../../components/common/Activenumber';
 import store from '../../../store';
 import { getAddress } from '../../../contract';
@@ -66,16 +66,42 @@ const FarmListItem = (props) => {
                 findNameByAddress(props.info.depositToken)
               }</div>
           </div>
+
+          <div className='center-info-data-list-item'>
+            <div className='label fz-14 lh-18 m-b-8'>{t('Total Staked')} </div>
+            <div className='value fw-500 c2b lh-20'>
+              {typeof(props.info.depositAmount) == 'undefined' ?<Skeleton.Button active size={'small'} />:fromUnit(props.info.depositAmount)}
+              &nbsp;
+              {
+                findNameByAddress(props.info.depositToken)
+              }
+            </div>
+          </div>
+
+          <div className='center-info-data-list-item'>
+            <div className='label fz-14 lh-18 m-b-8'>{t('My proportion')} </div>
+            <div className='value fw-500 c2b lh-20'>
+              {typeof(props.info.depositions?.depositAmount) == 'undefined' ?<Skeleton.Button active size={'small'} />:toFixed(fromUnit(props.info.depositions?.depositAmount)*100/fromUnit(props.info.depositAmount), 2)+ '%'}
+              
+            </div>
+          </div>
           <div className='center-info-data-list-item'>
             <div className='label fz-14 lh-18 m-b-8'>{t('Earn')} </div>
             <div className='value fw-500 c2b lh-20'>{findNameByAddress(props.info.rewardToken)}</div>
           </div>
 
           <div className='center-info-data-list-item'>
-            <div className='label fz-14 lh-18 m-b-8'>{t('Pool ends in')} {typeof(props.info.depositEndTime) != 'undefined' &&<Tooltip title={`pool ends in ${formatTime(props.info.depositEndTime)}`}><QuestionCircleOutlined /></Tooltip>}</div>
+            <div className='label fz-14 lh-18 m-b-8'>{t('Deposit ends in')} {typeof(props.info.depositEndTime) != 'undefined' &&<Tooltip title={`Deposit ends in ${formatTime(props.info.depositEndTime)}`}><QuestionCircleOutlined /></Tooltip>}</div>
             <div className='value fw-500 c2b lh-20'>
               {
-                typeof(props.info.depositEndTime) == 'undefined' ?<Skeleton.Button active size={'small'} />:(<><Activenumber value={calcDays(props.info.depositEndTime)} decimals={0}/> days</>)
+                typeof(props.info.depositEndTime) == 'undefined' ?<Skeleton.Button active size={'small'} />:(<><Activenumber value={calcDays(props.info.depositEndTime)} decimals={0}/> days {calcDays(props.info.depositEndTime) == 0 ? '(Ended)':''}</>)
+              }</div>
+          </div>
+          <div className='center-info-data-list-item'>
+            <div className='label fz-14 lh-18 m-b-8'>{t('Harvest starts in')} {typeof(props.info.claimStartTime) != 'undefined' &&<Tooltip title={`Harvest starts in ${formatTime(props.info.claimStartTime)}`}><QuestionCircleOutlined /></Tooltip>}</div>
+            <div className='value fw-500 c2b lh-20'>
+              {
+                typeof(props.info.claimStartTime) == 'undefined' ?<Skeleton.Button active size={'small'} />:(<><Activenumber value={calcDays(props.info.claimStartTime)} decimals={0}/> days {calcDays(props.info.claimStartTime) == 0 ? '(Started)':''}</>)
               }</div>
           </div>
 
@@ -87,16 +113,6 @@ const FarmListItem = (props) => {
                 (numFormat(fromUnit(props.info.totalReward) || '0'))
                 // <Activenumber value={fromUnit(props.info.weeklyReward) || '0'} decimals={4}/>
             }
-            </div>
-          </div>
-          <div className='center-info-data-list-item'>
-            <div className='label fz-14 lh-18 m-b-8'>{t('Total Staked')} </div>
-            <div className='value fw-500 c2b lh-20'>
-              {typeof(props.info.depositAmount) == 'undefined' ?<Skeleton.Button active size={'small'} />:fromUnit(props.info.depositAmount)}
-              &nbsp;
-              {
-                findNameByAddress(props.info.depositToken)
-              }
             </div>
           </div>
           {/* <div className='center-info-data-list-item'>
@@ -150,7 +166,7 @@ const FarmListItem = (props) => {
                     <div>
                       <div>
                       {t('Staked')}
-                        &nbsp;  <a className='cf68' href={props.info.lptype == 'LPToken' ?`/liquidity`:'/swap'}>{t('Get')} {findNameByAddress(props.info.depositToken)} {
+                        &nbsp;  <a className='cf68' target="_blank" href={props.info.lptype == 'LPToken' ?`https://swap.ostrich.love/liquidity`:'https://swap.ostrich.love/swap'}>{t('Get')} {findNameByAddress(props.info.depositToken)} {
                           props.info.lptype == 'LPToken' ? (' LP') : ''
                         }</a>
                       </div>

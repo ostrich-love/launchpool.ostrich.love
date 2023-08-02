@@ -1,5 +1,5 @@
 /* eslint-disable import/no-anonymous-default-export */
-import logo from '../../assets/image/common/ostrich_test.svg';
+import logo from '../../assets/image/common/ostrich.svg';
 import menu from '../../assets/image/common/menu.svg';
 import menuw from '../../assets/image/common/menuw.svg';
 import { Button, Drawer, Radio, Space, Tooltip } from 'antd';

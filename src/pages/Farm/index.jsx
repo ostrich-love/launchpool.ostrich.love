@@ -136,18 +136,6 @@ function Farm(props) {
     })
     setShowList(list)
   }, [filterText, farmlist, stakeOnly,status, sort])
-  useEffect(async () => {
-    let name = 'Orich-USDC'
-    let {reserve0, reserve1}  = await getReserves(findAddressByName(name))
-    let reserve_x = findAddressByName(name.split('-')[0]) < findAddressByName(name.split('-')[1]) ?reserve0:reserve1
-    let reserve_y = findAddressByName(name.split('-')[0]) < findAddressByName(name.split('-')[1]) ?reserve1:reserve0
-    setPrice(toFixed(reserve_y/reserve_x,  decimal))
-
-    let { data: tvl_data } = await get('/api/evm/farm/tvlKline', {
-      chain_id: getNetwork().networkId
-    })
-    setTvl((tvl_data[tvl_data.length-1].tvl))
-  }, [])
   // useEffect(async() => {
   //   try {
   //     let pools = []
@@ -315,8 +303,8 @@ function Farm(props) {
     <div className="farm p-b-140">
       <div className='farm-header-banner'>
         <div className="farm-banner-content flex flex-column flex-middle">
-          <div className='fz-40 c231 lh-50 farm-banner-content-name'>{t('Farm')}</div>
-          <div className="c231 fz-20 m-t-8 farm-banner-content-data">{t('Multiple staking options for you to earn more rewards')}</div>
+          {/* <div className='fz-40 c231 lh-50 farm-banner-content-name'>{t('Farm')}</div> */}
+          {/* <div className="c231 fz-20 m-t-8 farm-banner-content-data">{t('Multiple staking options for you to earn more rewards')}</div> */}
         </div>
       </div>
       <div className='farm-content'>
@@ -329,11 +317,11 @@ function Farm(props) {
               value={status}
               optionType="button"
               buttonStyle="solid" />
-            <div className='list-type flex pointer'>
+            {/* <div className='list-type flex pointer'>
               <img src={!type ? listtype2 : listtype} alt="" className='m-l-20' onClick={() => { setType(0) }} />
               <img src={type ? squaretype2 : squaretype} alt="" className='m-l-15' onClick={() => { setType(1) }} />
               
-            </div>
+            </div> */}
           </div>
           {/* <div className="flex flex-center farm-search-left ">
             <div className='fz-14 lh-18'>
@@ -402,8 +390,8 @@ function Farm(props) {
         </div>
         <div className='flex flex-center flex-between m-t-30'>
           <div className='flex flex-column'>
-            <span className='fz-14 fwb lh-18'>{t('Farms will run in multiple phases')}</span>
-            <span className='fz-14 lh-18'>{t('Once the current phase ends, you can harvest your rewards from the farm in the Ended tab. To continue earning rewards in the new phase, you must restake your position into the active farm')}</span>
+            {/* <span className='fz-14 fwb lh-18'>{t('Farms will run in multiple phases')}</span> */}
+            {/* <span className='fz-14 lh-18'>{t('Once the current phase ends, you can harvest your rewards from the farm in the Ended tab. To continue earning rewards in the new phase, you must restake your position into the active farm')}</span> */}
           </div>
           {/* <img className='squirrel-right' src={squirrelRight} alt="" /> */}
         </div>

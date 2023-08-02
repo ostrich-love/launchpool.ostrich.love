@@ -259,8 +259,11 @@
 "Fixed pool in front": "固定池在前",
 "Aggregated Routes": "聚合路由",
 "IDO in progress": "IDO正在进行",
+"Aggregated routing brings better prices, but it will result in an additional portion of network requests": "聚合路由带来更好的价格，但是会多一部分网络请求",
+"My proportion": "我的比例",
 "View Contract": "查看合约",
 "Expected Earned": "预计获得",
 "Total Reward": "总奖励",
-"Aggregated routing brings better prices, but it will result in an additional portion of network requests": "聚合路由带来更好的价格，但是会多一部分网络请求"
+"Deposit ends in": "质押结束于",
+"Harvest starts in": "收获开始于"
 }
