@@ -101,23 +101,16 @@ const toSwap = useCallback(async() => {
   setLoading(true)
   console.log(buyer)
   console.log(seller)
-  // let method = type == 'input' ? 'swapExactTokenForToken':'swapTokenForExactToken'
+  let method = type == 'input' ? 'swapExactTokenForToken':'swapTokenForExactToken'
   let inputNum = type =='input' ? toWei(toFixed(buyer*(1), UNIT_DECIMAL)):toWei(toFixed(buyer*(1+slip/100), UNIT_DECIMAL))
   let outputNum = type == 'input' ? toWei(toFixed(seller*(1-slip/100), UNIT_DECIMAL)):toWei(toFixed(seller, UNIT_DECIMAL))
-  console.log(routers_with_price)
-  let pools = []
-  routers_with_price[0].router.map(item => {
-    pools.push({
-      a: item.pair,
-      t: item.t
-    })
-  })
+  
   swap(
-    pools,
-    findAddressByName(inputToken),
     inputNum,
-    0,
+    outputNum,
+    [findAddressByName(inputToken) , findAddressByName(outToken)],
     10,
+    method,
     () => {
           setLoading(false)
           setBuyer('')
@@ -128,36 +121,36 @@ const toSwap = useCallback(async() => {
     setLoading(false)
     setRefresh(refresh+1)
   })
-}, [routers_with_price]) 
+}, []) 
 const toApprove = ()=>{
   setLoading(true)
-  approve(findAddressByName(inputToken), findAddressByName('DexAggregator')).then(res => {
+  approve(findAddressByName(inputToken), findAddressByName('SwapAggregator')).then(res => {
     setApproveRefresh(approveRefresh+1)
   }).finally(err => {
     setLoading(false)
   })
 }
-const toClaim = () => {
-  if(claimLoading) {
-    return
-  }
-  if(!props.account) {
-    showLogin()
-    return
-  }
-  if(new Date().getTime()/1000 - claimDate < 24*60*60) { // 一天之内
-    OpenNotification('warning', 'Claim failed', `please claim in ${24-Math.floor((new Date().getTime()/1000 - claimDate)/60/60)} hour(s)`)
-    return
-  }
+// const toClaim = () => {
+//   if(claimLoading) {
+//     return
+//   }
+//   if(!props.account) {
+//     showLogin()
+//     return
+//   }
+//   if(new Date().getTime()/1000 - claimDate < 24*60*60) { // 一天之内
+//     OpenNotification('warning', 'Claim failed', `please claim in ${24-Math.floor((new Date().getTime()/1000 - claimDate)/60/60)} hour(s)`)
+//     return
+//   }
 
-  setClaimLoading(true)
-  reqeust().then(res => {
-    setRefresh(refresh+1)
-    setClaimLoading(false)
-  }).finally(err=>{
-    setClaimLoading(false)
-  })
-}
+//   setClaimLoading(true)
+//   reqeust().then(res => {
+//     setRefresh(refresh+1)
+//     setClaimLoading(false)
+//   }).finally(err=>{
+//     setClaimLoading(false)
+//   })
+// }
 //  互换
  const exChange = () => {
   let name = inputToken

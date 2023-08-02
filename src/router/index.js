@@ -20,6 +20,10 @@ export default [
     {
       path: '/farm',
       component: <Farm />
+    },
+    {
+      path: '/base',
+      component: <Farm />
     }
     
 ]
